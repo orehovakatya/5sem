@@ -1,0 +1,54 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer05
+{
+    class CallSp1
+    {
+        static void Main()
+        {
+            // Объявляем строку подключения
+            string connectionString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Создаем команду (обращаем внимание на другой способ создания объекта команды)
+                SqlCommand cmd = conn.CreateCommand();
+                // Определяем хранимую процедуру для исполнения
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_select_all_employees";
+                // Выполняем команду
+                SqlDataReader rdr = cmd.ExecuteReader();
+                // Обрабатываем результирующий набор данных
+                while (rdr.Read())
+                {
+                    Console.WriteLine("{0} {1} {2}", rdr[0].ToString().PadRight(5), rdr[1].ToString(), rdr[2].ToString());
+                }
+                // Закрываем читатель
+                rdr.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}
+/*
+use Northwind
+go
+create proc sp_select_all_employees
+as
+select LastName, FirstName, Title from Employees
+go
+*/

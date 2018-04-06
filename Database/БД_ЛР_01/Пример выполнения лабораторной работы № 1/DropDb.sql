@@ -1,0 +1,3 @@
+DROP DATABASE Enterprise;
+
+GO

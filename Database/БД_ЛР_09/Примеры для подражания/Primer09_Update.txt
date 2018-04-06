@@ -1,0 +1,63 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Chapter08
+{
+    class Primer09_Update
+    {
+        static void Main(string[] args)
+        {
+            // Создаем строку подключения
+            string connString = @"server = .\sqlexpress;integrated security = true;database = northwind;";
+            // Создаем  строку запроса на выборк
+            string qry = @"select * from employees where country = 'UK'";
+            // Создаем строку запроса на обновление
+            string upd = @"update employees set city = @city where employeeid = @employeeid";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter();
+                // Создаем команду запроса для текущего подключения
+                da.SelectCommand = new SqlCommand(qry, conn);
+                // Создаем и наполняем таблицу 'employees' набора данных
+                DataSet ds = new DataSet();
+                da.Fill(ds, "employees");
+                // Получаем ссылку на таблицу 'employees'
+                DataTable dt = ds.Tables["employees"];
+                // Изменяем поле 'city' первой записи
+                dt.Rows[0]["city"] = "Wilmington";
+                // Распечатываем строки измененной таблицы 'employees' в наборе данных 
+                foreach (DataRow row in dt.Rows)
+                {
+                    Console.WriteLine("{0} {1} {2}",
+                       row["firstname"].ToString().PadRight(15),
+                       row["lastname"].ToString().PadLeft(25),
+                       row["city"]);
+                }
+                // Обновляем таблицу 'employees' БД
+                // Создаем команду обновления для текущего подключения
+                SqlCommand cmd = new SqlCommand(upd, conn);
+                // Отображаем (мапируем) параметры
+                cmd.Parameters.Add("@city", SqlDbType.NVarChar, 15, "city");
+                SqlParameter parm = cmd.Parameters.Add("@employeeid", SqlDbType.Int, 4, "employeeid");
+                parm.SourceVersion = DataRowVersion.Original;
+                // Адаптер выполняет команду обновления, обнаруженную в свойстве 'UpdateCommand'
+                da.UpdateCommand = cmd;
+                da.Update(ds, "employees");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

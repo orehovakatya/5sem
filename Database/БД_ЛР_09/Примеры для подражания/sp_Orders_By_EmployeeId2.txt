@@ -1,0 +1,12 @@
+use Northwind
+go
+create procedure sp_Orders_By_EmployeeId2 @employeeid int, @ordercount int = 0 output
+as
+	select orderid, customerid
+	from orders
+	where employeeid = @employeeid;
+	select @ordercount = count(*)
+	from orders
+	where employeeid = @employeeid
+	return @ordercount;
+go

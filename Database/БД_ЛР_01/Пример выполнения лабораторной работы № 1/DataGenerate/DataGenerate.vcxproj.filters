@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\GenTable">
+      <UniqueIdentifier>{7b5c34ad-a183-4a2e-84b7-31f2b2429334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GenTable\General">
+      <UniqueIdentifier>{749fab2a-4a07-4539-b424-e8205ba76003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gen Data">
+      <UniqueIdentifier>{9505faaf-cc40-4bd2-82a9-56d3f0caa61c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gen Data\GenAddress">
+      <UniqueIdentifier>{3ad693c6-14b2-48f0-a4f1-2c30e0a30643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputData">
+      <UniqueIdentifier>{2e0eb932-4572-46f5-a8b2-fb691adf665c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputData\DataIO">
+      <UniqueIdentifier>{6d5b367a-b195-41af-aeaa-5747a76c69cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputData\FileIO">
+      <UniqueIdentifier>{e1886914-2fa4-4922-ba0c-f5c089102393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GenTable">
+      <UniqueIdentifier>{a8a49392-2a9f-4a9c-99a0-c564106edc8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GenTable\General">
+      <UniqueIdentifier>{aadedc67-c0f7-48ce-80cd-ec35c9a1bc60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GenData">
+      <UniqueIdentifier>{00283b7c-251c-4562-8fd9-7988c511e17d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GenData\GenAddress">
+      <UniqueIdentifier>{06bc4bfd-06b4-4867-a48a-e5e0bc7fb28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Consts">
+      <UniqueIdentifier>{5813cda5-792a-44c9-ac27-5f2c69e0ed03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\InputData">
+      <UniqueIdentifier>{540cbc6b-3844-4abd-8f78-39e396075c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\InputData\DataIO">
+      <UniqueIdentifier>{228dc0a9-527e-4965-8657-0a8c10b34c1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\InputData\FileIO">
+      <UniqueIdentifier>{8a9e630f-9f34-4991-8918-350a336efeff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BestRandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GenContractors.cpp">
+      <Filter>Source Files\GenTable</Filter>
+    </ClCompile>
+    <ClCompile Include="GenEmployers.cpp">
+      <Filter>Source Files\GenTable</Filter>
+    </ClCompile>
+    <ClCompile Include="GenPayments.cpp">
+      <Filter>Source Files\GenTable</Filter>
+    </ClCompile>
+    <ClCompile Include="GenProjects.cpp">
+      <Filter>Source Files\GenTable</Filter>
+    </ClCompile>
+    <ClCompile Include="GenerateTable.cpp">
+      <Filter>Source Files\GenTable\General</Filter>
+    </ClCompile>
+    <ClCompile Include="GenCompanyName.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenDate.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenHumanName.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenID.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenPartName.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenSpec.cpp">
+      <Filter>Source Files\Gen Data</Filter>
+    </ClCompile>
+    <ClCompile Include="GenAddress.cpp">
+      <Filter>Source Files\Gen Data\GenAddress</Filter>
+    </ClCompile>
+    <ClCompile Include="GenAddressPart.cpp">
+      <Filter>Source Files\Gen Data\GenAddress</Filter>
+    </ClCompile>
+    <ClCompile Include="DataInput.cpp">
+      <Filter>Source Files\InputData\DataIO</Filter>
+    </ClCompile>
+    <ClCompile Include="DataIO.cpp">
+      <Filter>Source Files\InputData\DataIO</Filter>
+    </ClCompile>
+    <ClCompile Include="FileInput.cpp">
+      <Filter>Source Files\InputData\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>Source Files\InputData\FileIO</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BestRandom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GenContractors.h">
+      <Filter>Header Files\GenTable</Filter>
+    </ClInclude>
+    <ClInclude Include="GenEmployers.h">
+      <Filter>Header Files\GenTable</Filter>
+    </ClInclude>
+    <ClInclude Include="GenPayments.h">
+      <Filter>Header Files\GenTable</Filter>
+    </ClInclude>
+    <ClInclude Include="GenProjects.h">
+      <Filter>Header Files\GenTable</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateTable.h">
+      <Filter>Header Files\GenTable\General</Filter>
+    </ClInclude>
+    <ClInclude Include="GenCompanyName.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenDate.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenHumanName.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenID.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenPartName.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenSpec.h">
+      <Filter>Header Files\GenData</Filter>
+    </ClInclude>
+    <ClInclude Include="GenAddress.h">
+      <Filter>Header Files\GenData\GenAddress</Filter>
+    </ClInclude>
+    <ClInclude Include="GenAddressPart.h">
+      <Filter>Header Files\GenData\GenAddress</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldSizes.h">
+      <Filter>Header Files\Consts</Filter>
+    </ClInclude>
+    <ClInclude Include="FileNames.h">
+      <Filter>Header Files\Consts</Filter>
+    </ClInclude>
+    <ClInclude Include="TableSizes.h">
+      <Filter>Header Files\Consts</Filter>
+    </ClInclude>
+    <ClInclude Include="DataInput.h">
+      <Filter>Header Files\InputData\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="DataIO.h">
+      <Filter>Header Files\InputData\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="DinTypes.h">
+      <Filter>Header Files\InputData\DataIO</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInput.h">
+      <Filter>Header Files\InputData\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Header Files\InputData\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="FinTypes.h">
+      <Filter>Header Files\InputData\FileIO</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

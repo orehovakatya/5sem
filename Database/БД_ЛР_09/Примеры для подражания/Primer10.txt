@@ -1,0 +1,42 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer10
+{
+    class WriteXML
+    {
+        static void Main(string[] args)
+        {
+            // Создаем строку подключения
+            string connString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Создаем строку запроса
+            string qry = @"select productname, unitprice from products";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = new SqlCommand(qry, conn);
+                // Открываем подключение
+                conn.Open();
+                // Создаем и наполняем таблицу 'products' набора данных
+                DataSet ds = new DataSet();
+                da.Fill(ds, "products");
+                // Извлекаем данные из таблицы 'products' набора данных и пишем их в XML-файл
+                ds.WriteXml(@"D:\data\productstable.xml");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

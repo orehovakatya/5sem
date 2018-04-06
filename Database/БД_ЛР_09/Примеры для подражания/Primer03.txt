@@ -1,0 +1,50 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer03
+{
+    class CommandReader
+    {
+        static void Main()
+        {
+            // Объявляем строку подключения
+            string connectionString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Объявляем строку запроса
+            string queryString = @"select firstname, lastname from employees";
+            // Создаем подключение для текущей строки подключения
+            SqlConnection conn = new SqlConnection(connectionString);
+            // Создаем команду для текущей строки запроса и текущего подключения
+            SqlCommand cmd = new SqlCommand(queryString, conn);
+            Console.WriteLine("Команда создана для текущего подключения.");
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Выполняем запрос и строим объект rdr типа SqlDataReader, 
+                // который предоставляет возможность чтения потока строк только в прямом направлении из базы данных SQL Server
+                SqlDataReader rdr = cmd.ExecuteReader();
+                // Читаем строки в прямом направлении до тех пор, пока они есть
+                while (rdr.Read())
+                {
+                    // Выводим на консоль интересующие нас данные
+                    Console.WriteLine("Имя и фамилия сотрудника: {0} {1}", rdr.GetValue(0), rdr.GetValue(1)
+                    );
+                }
+                // Закрываем читатель
+                rdr.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+                Console.WriteLine("Подключение закрыто.");
+            }
+            Console.ReadLine();
+        }
+    }
+}

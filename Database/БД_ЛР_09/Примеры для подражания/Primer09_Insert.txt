@@ -1,0 +1,75 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer09_Insert
+{
+    class PersistAdds
+    {
+        static void Main(string[] args)
+        {
+            // Создаем строку подключения
+            string connString = @"server = .\sqlexpress;integrated security = true;database = northwind;";
+            // Создаем запрос на выборку
+            string qry = @"select * from employees where country = 'UK'";
+            // Создаем запрос на вставку
+            string ins = @"insert into employees (firstname, lastname, titleofcourtesy, city, country)
+		           values (@firstname, @lastname, @titleofcourtesy, @city, @country)";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter();
+		// Создаем команду запроса для текущего подключения	
+                da.SelectCommand = new SqlCommand(qry, conn);
+                // Создаем и наполняем набор данных
+                DataSet ds = new DataSet();
+                da.Fill(ds, "employees");
+                // Получаем ссылку на таблицу 'employees'
+                DataTable dt = ds.Tables["employees"];
+                // Добавляем  строку к таблице 'employees' набора данных 'ds'
+		//
+                DataRow newRow = dt.NewRow();
+                newRow["firstname"] = "Roy";
+                newRow["lastname"] = "Beatty";
+                newRow["titleofcourtesy"] = "Sir";
+                newRow["city"] = "Birmingham";
+                newRow["country"] = "UK";
+                dt.Rows.Add(newRow);
+                // Распечатываем строки обновленной таблицы
+                foreach (DataRow row in dt.Rows)
+                {
+                    Console.WriteLine("{0} {1} {2}",
+                       row["firstname"].ToString().PadRight(15),
+                       row["lastname"].ToString().PadLeft(25),
+                       row["city"]);
+                }
+                // Выполняем вставку в таблицу 'employees' БД
+                //
+                // Создаем команду вставки для текущего подключения
+                SqlCommand cmd = new SqlCommand(ins, conn);
+                // Отображаем параметры
+                cmd.Parameters.Add("@firstname", SqlDbType.NVarChar, 10, "firstname");
+                cmd.Parameters.Add("@lastname", SqlDbType.NVarChar, 20, "lastname");
+                cmd.Parameters.Add("@titleofcourtesy", SqlDbType.NVarChar, 25, "titleofcourtesy");
+                cmd.Parameters.Add("@city", SqlDbType.NVarChar, 15, "city");
+                cmd.Parameters.Add("@country", SqlDbType.NVarChar, 15, "country");
+                // Адаптер выполняет команду вставки, обнаруженную в свойстве 'InsertCommand',
+                // поскольку значением 'RowState' этой новой строки  является 'DataRowState.Added'
+                da.InsertCommand = cmd;
+                da.Update(ds, "employees");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

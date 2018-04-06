@@ -1,0 +1,5 @@
+C:\Documents and Settings\Admin\Мои документы\Visual Studio 2008\Projects\LINQ02\LINQ02\bin\Debug\LINQ02.exe
+C:\Documents and Settings\Admin\Мои документы\Visual Studio 2008\Projects\LINQ02\LINQ02\bin\Debug\LINQ02.pdb
+C:\Documents and Settings\Admin\Мои документы\Visual Studio 2008\Projects\LINQ02\LINQ02\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Admin\Мои документы\Visual Studio 2008\Projects\LINQ02\LINQ02\obj\Debug\LINQ02.exe
+C:\Documents and Settings\Admin\Мои документы\Visual Studio 2008\Projects\LINQ02\LINQ02\obj\Debug\LINQ02.pdb

@@ -1,0 +1,5 @@
+c:\users\student\documents\visual studio 2010\Projects\LINQ01\LINQ01\bin\Debug\LINQ01.exe
+c:\users\student\documents\visual studio 2010\Projects\LINQ01\LINQ01\bin\Debug\LINQ01.pdb
+c:\users\student\documents\visual studio 2010\Projects\LINQ01\LINQ01\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\student\documents\visual studio 2010\Projects\LINQ01\LINQ01\obj\x86\Debug\LINQ01.exe
+c:\users\student\documents\visual studio 2010\Projects\LINQ01\LINQ01\obj\x86\Debug\LINQ01.pdb

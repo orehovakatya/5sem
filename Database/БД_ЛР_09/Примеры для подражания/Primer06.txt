@@ -1,0 +1,72 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer06
+{
+    class CallSp2
+    {
+        static void Main()
+        {
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(@"server = .\sqlexpress;integrated security = true;database = northwind");
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Создаем команду
+                SqlCommand cmd = conn.CreateCommand();
+                // Определяем хранимую процедуру для исполнения
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_orders_by_employeeid2";
+                // Создаем входной параметр
+                SqlParameter inparm = cmd.Parameters.Add("@employeeid", SqlDbType.Int);
+                inparm.Direction = ParameterDirection.Input;
+                inparm.Value = 2;
+                // Создаем выходной параметр
+                SqlParameter ouparm = cmd.Parameters.Add("@ordercount", SqlDbType.Int);
+                ouparm.Direction = ParameterDirection.Output;
+                // Создаем параметр возвращаемого значения
+                SqlParameter retval = cmd.Parameters.Add("return_value", SqlDbType.Int);
+                retval.Direction = ParameterDirection.ReturnValue;
+                // Выполняем команду, т.е. хранимую процедуру
+                SqlDataReader rdr = cmd.ExecuteReader();
+                // Обрабатываем результирующий набор данных
+                while (rdr.Read())
+                {
+                    Console.WriteLine("{0} {1}",  rdr[0].ToString().PadRight(5), rdr[1].ToString());
+                }
+                // Закрываем читатель
+                rdr.Close();
+                // Печатаем значение выходного параметра
+                Console.WriteLine("Значение выходного параметра равно {0}", cmd.Parameters["@ordercount"].Value);
+                // Печатаем возвращаемое значение
+                Console.WriteLine("Возвращаемое значение равно {0}", cmd.Parameters["return_value"].Value);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}
+/*
+use Northwind
+go
+create procedure sp_Orders_By_EmployeeId2 @employeeid int, @ordercount int = 0 output
+as
+	select orderid, customerid
+	from orders
+	where employeeid = @employeeid;
+	select @ordercount = count(*)
+	from orders
+	where employeeid = @employeeid
+	return @ordercount
+go
+*/

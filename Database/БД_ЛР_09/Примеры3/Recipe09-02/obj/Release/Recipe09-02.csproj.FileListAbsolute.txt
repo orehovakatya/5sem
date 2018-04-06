@@ -1,0 +1,6 @@
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\bin\Release\Recipe09-02.exe.config
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\bin\Release\Recipe09-02.exe
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\bin\Release\Recipe09-02.pdb
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\obj\Release\ResolveAssemblyReference.cache
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\obj\Release\Recipe09-02.exe
+C:\Users\HomePC\Documents\ADO\Примеры3\Recipe09-02\obj\Release\Recipe09-02.pdb

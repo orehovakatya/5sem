@@ -1,0 +1,78 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer08
+{
+    class FilterSort
+    {
+        static void Main(string[] args)
+        {
+            // Объявляем строку подключения
+            string connString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Объявляем строку первого запроса
+            string sql1 = @"select * from customers "; // Внимание!!! Пробел в конце строки должен быть обязательно.
+            // Объявляем строку второго запроса
+            string sql2 = @"select * from products where unitprice < 10";
+            // Объединяем строки запросов
+            string sql = sql1 + sql2;
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter();
+                // Создаем команду и присваиваем ее свойству SelectCommand адаптера данных.
+                // Это свойство задает инструкцию Transact-SQL или хранимую процедуру, используемую для выбора записей из источника данных.
+                da.SelectCommand = new SqlCommand(sql, conn);
+                // Создаем объект ds типа DataSet и наполняем его данными
+                DataSet ds = new DataSet();
+                da.Fill(ds, "customers");
+                // Получаем коллекцию таблиц
+                DataTableCollection dtc = ds.Tables;
+                // Выводим на консоль данные из первой таблицы коллекции
+                //
+                // Печатаем заголовок
+                Console.WriteLine("Результаты из таблицы 'Customers':");
+                Console.WriteLine("".PadLeft(60, '-'));
+                Console.WriteLine("Название компании".PadRight(23) + "Контактное имя".PadLeft(23));
+                Console.WriteLine("".PadLeft(60, '-'));
+                // Устанавливаем фильтр
+                string fl = "country = 'Germany'";
+                // Определяем порядок сортировки
+                string srt = "companyname asc";
+                // Выводим на консоль отфильтрованные и отсортированные данные
+                foreach (DataRow row in dtc["customers"].Select(fl, srt))
+                {
+                    Console.WriteLine("{0}\t{1}", row["CompanyName"].ToString().PadRight(25), row["ContactName"]);
+                }
+                Console.WriteLine("".PadLeft(60, '-'));
+                // Выводим на консоль данные из второй таблицы коллекции
+                //
+                // Печатаем заголовок
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Результаты из таблицы 'Products':");
+                Console.WriteLine("".PadLeft(60, '-'));
+                Console.WriteLine("Название продукта".PadRight(20) + "Цена за единицу".PadLeft(27));
+                Console.WriteLine("".PadLeft(60, '-'));
+                // Выводим на консольданные                
+                foreach (DataRow row in dtc[1].Rows)
+                {
+                    Console.WriteLine("{0}\t{1}", row["ProductName"].ToString().PadRight(25), row["UnitPrice"]);
+                }
+                Console.WriteLine("".PadLeft(60, '-'));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

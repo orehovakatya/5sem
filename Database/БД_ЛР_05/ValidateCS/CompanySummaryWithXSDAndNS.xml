@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<CompanySummary CompanyName="My Cool Startup Company"
+                xmlns="urn:MyUri"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="urn:MyUri CompanySummaryNS.xsd">
+
+   <RegDate>1997-07-02</RegDate>
+   <NumEmps>3</NumEmps>
+
+</CompanySummary>

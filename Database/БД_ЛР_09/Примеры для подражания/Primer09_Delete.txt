@@ -1,0 +1,75 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer09_Delete
+{
+    class PersistDeletes
+    {
+        static void Main(string[] args)
+        {
+            // Создаем строку подключения
+            string connString = @"
+                server = .\sqlexpress;
+                integrated security = true;
+                database = northwind
+            ";
+            // Создаем строку запроса на выборку
+            string qry = @"
+                select *
+                from employees
+                where country = 'UK'
+            ";
+            // Создаем строку запроса на удаление
+            string del = @"
+                delete from employees
+                where employeeid = @employeeid
+            ";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = new SqlCommand(qry, conn);
+                // Создаем и наполняем набор данных
+                DataSet ds = new DataSet();
+                da.Fill(ds, "employees");
+                // Сначала надо уточнить, сколько записей попадет в таблицу!!!
+                // Получаем ссылку на таблицу данных
+                DataTable dt = ds.Tables["employees"];
+                // Удаляем сотрудников
+                //
+                // Создаем команду на удаление
+                SqlCommand cmd = new SqlCommand(del, conn);
+                //
+                // Добавляем параметр к запросу
+                cmd.Parameters.Add("@employeeid", SqlDbType.Int, 4, "employeeid");
+                // Создаем фильтр для удаления сотрудников
+                string filt = @"firstname = 'Roy' and lastname = 'Beatty'";
+                // Удаляем сотрудников
+                foreach (DataRow row in dt.Select(filt))
+                {
+                    row.Delete();
+                }
+                da.DeleteCommand = cmd;
+                da.Update(ds, "employees");
+                // Распечатываем строки таблицы из набора данных
+                foreach (DataRow row in dt.Rows)
+                {
+                    Console.WriteLine("{0} {1} {2}", row["firstname"].ToString().PadRight(15), row["lastname"].ToString().PadLeft(25), row["city"]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

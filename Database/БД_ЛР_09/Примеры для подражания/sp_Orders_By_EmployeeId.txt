@@ -1,0 +1,8 @@
+use Northwind
+go
+create procedure sp_Orders_By_EmployeeId @employeeid int
+as
+	select orderid, customerid
+	from orders
+	where employeeid = @employeeid;
+go

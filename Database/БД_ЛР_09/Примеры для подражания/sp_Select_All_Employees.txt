@@ -1,0 +1,7 @@
+use Northwind
+go
+create procedure sp_Select_All_Employees
+as
+	select employeeid, firstname, lastname
+	from employees;
+go

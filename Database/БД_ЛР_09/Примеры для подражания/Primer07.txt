@@ -1,0 +1,53 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer07
+{
+    class PopDataSet
+    {
+        static void Main(string[] args)
+        {
+            // Определяем строку подключения
+            string connString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Определяем строку запроса (обращаем внимание на смысл символа @ в качестове префикса строки)
+            string sql = @"
+                select productname, unitprice
+                from products
+                where unitprice < 20
+            ";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connString);
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Создаем адаптер данных
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                // Создаем объект ds типа DataSet
+                DataSet ds = new DataSet();
+                // Наполняем объект ds
+                da.Fill(ds, "products");
+                // Получаем таблицу данных
+                DataTable dt = ds.Tables["products"];
+                // Распечатываем содержимое таблтцы
+                foreach (DataRow row in dt.Rows)
+                {
+                    foreach (DataColumn col in dt.Columns)
+                        Console.WriteLine(row[col]);
+                    Console.WriteLine("".PadLeft(30, '='));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+            }
+            Console.ReadLine();
+        }
+    }
+}

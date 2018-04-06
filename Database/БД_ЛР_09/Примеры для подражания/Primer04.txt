@@ -1,0 +1,65 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer04
+{
+    class CommandParameters
+    {
+        static void Main()
+        {
+            // Объявляем строку подключения
+            string connectionString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // Устанавливаем значения параметрического запроса
+            string fname = "Zachariah";
+            string lname = "Zinn";
+            // Создаем подключение
+            SqlConnection conn = new SqlConnection(connectionString);
+            // Определяем скалярный запрос на выборку
+            string sqlqry = @"select count(*) from employees";
+            // Определяем параметрический запрос на вставку
+            string sqlins = @"insert into employees (firstname, lastname) values(@fname, @lname)";
+            // Определяем параметрический запрос на удаление
+            string sqldel = @"delete from employees where firstname = @fname and lastname = @lname";
+            // Создаем две команды
+            SqlCommand cmdqry = new SqlCommand(sqlqry, conn);
+            SqlCommand cmdnon = new SqlCommand(sqlins, conn);
+            // Добавляем параметры к команде на вставку
+            cmdnon.Parameters.Add("@fname", SqlDbType.NVarChar, 10);
+            cmdnon.Parameters.Add("@lname", SqlDbType.NVarChar, 20);
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Выполняем запрос на выборку, чтобы получить количество сотрудников до вставки
+                Console.WriteLine("До INSERT: Количество сотрудников {0}\n", cmdqry.ExecuteScalar());
+                // Присваиваем параметрам значения
+                cmdnon.Parameters["@fname"].Value = fname;
+                cmdnon.Parameters["@lname"].Value = lname;
+                Console.WriteLine("Выполняется запорос {0}", cmdnon.CommandText);
+                // Выполняем запрос на вставку
+                cmdnon.ExecuteNonQuery();
+                // Выполняем запрос на выборку, чтобы получить количество сотрудников после вставки
+                Console.WriteLine("После INSERT: Количество сотрудников {0}\n", cmdqry.ExecuteScalar());
+                // Меняем запрос "на вставку" на запрос "на удаление"
+                cmdnon.CommandText = sqldel;
+                Console.WriteLine("Выполняется запрос {0}", cmdnon.CommandText);
+                // Выполняем запорос на удаление
+                cmdnon.ExecuteNonQuery();
+                // Выполняем запрос на выборку, чтобы получить количество сотрудников после удаления
+                Console.WriteLine("После DELETE: Количество сотрудников {0}\n", cmdqry.ExecuteScalar());
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+                Console.WriteLine("Подключение закрыто.");
+            }
+            Console.ReadLine();
+        }
+    }
+}

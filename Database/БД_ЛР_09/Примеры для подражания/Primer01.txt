@@ -1,0 +1,43 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer01
+{
+    class ConnectionDisplay
+    {
+        static void Main()
+        {
+            // Объявляем строку подключения
+            string connectionString = @"server = .\sqlexpress;integrated security = true;";
+            // Создаем подключение для текущей строки подключения
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                Console.WriteLine("Подключение открыто.");
+                // Выводим на консоль свойства подключения
+                Console.WriteLine("Свойства подключения:");
+                Console.WriteLine("\tСтрока подключения: {0}", conn.ConnectionString);
+                Console.WriteLine("\tБаза данных: {0}", conn.Database);
+                Console.WriteLine("\tИсточник данных: {0}", conn.DataSource);
+                Console.WriteLine("\tВерсия сервера: {0}", conn.ServerVersion);
+                Console.WriteLine("\tСостояние подключения: {0}", conn.State);
+                Console.WriteLine("\tId рабочей станции: {0}", conn.WorkstationId);
+            }
+            catch (SqlException e)
+            {
+                // Выводим сообщение об ошибке в случае возникновения исключения
+                Console.WriteLine("Ошибка: " + e);
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+                Console.WriteLine("Подключение закрыто.");
+            }
+            Console.ReadLine();
+        }
+    }
+}

@@ -1,0 +1,156 @@
+% !TeX spellcheck = russian-aot
+%\documentclass[12pt,a4paper,draft]{article}
+%\usepackage{cmap}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
+%\usepackage[english,german,russian]{babel}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+%\usepackage[final]{graphicx}
+%\DeclareGraphicsExtensions{.jpg,.png}
+%\graphicspath{{pictures/}} % путь к графическим файлам. Пусть они помещаются в подкаталог pictures текущего каталога
+%\usepackage[figurename=Рисунок,labelsep=period]{caption}
+%\usepackage{float}
+%\usepackage{indentfirst}
+%\usepackage[pdftex,left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+%\usepackage[obeyDraft]{todonotes}
+%\usepackage[hidelinks,draft=false]{hyperref}
+%\frenchspacing
+%\pdfcompresslevel=9
+
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{natbib}
+\usepackage[final]{graphicx}
+\DeclareGraphicsExtensions{.jpg,.png}
+\graphicspath{{pictures/}}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{color} %% это для отображения цвета в коде
+%\usepackage{listings} %% собственно, это и есть пакет listings
+
+
+
+
+%\setmonofont{Consolas} %to be used with XeLaTeX or LuaLaTeX
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\usepackage{listings}
+\lstset{
+language=[Sharp]C,
+captionpos=t,
+%numbers=left, %Nummerierung
+%numberstyle=\tiny, % kleine Zeilennummern
+frame=lines, % Oberhalb und unterhalb des Listings ist eine Linie
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+morekeywords={partial, var, value, get, set},
+keywordstyle=\color{bluekeywords}\bf,
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily\small,
+extendedchars=\true
+}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}} %% это сделает текст заголовка белым
+%% код ниже нарисует серую рамочку вокруг заголовка кода.
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+
+\usepackage{ctable}%для таблиц
+\captionsetup[table]{justification=raggedleft,singlelinecheck=off}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{titlepage}
+	\centering
+    \begin{figure}[H]
+    	\includegraphics[scale=1.2]{photo}
+   	\end{figure}
+	{\scshape Министерство образования Российской Федерации
+Московский Государственный Технический Университет им. Н.Э. Баумана \par}
+	\vspace{4cm}
+	{\scshape\Large Отчёт по лабораторной работе № 1\par}
+    {\scshape\Large По курсу: "Анализ алгоритмов"\par}
+	{\scshape\Large\bf Тема:"Потоковый алгоритм."\par}
+    \vspace{2cm}
+    {\flushright Студент: Орехова Е.О. ИУ7-51\par
+    \flushright Преподаватель: Волкова Л.Л.\par}
+    \vspace{2cm}
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
+
+\def\contentaname{Содержание}
+\tableofcontents %Вывод содержания
+\clearpage
+
+\section{Постановка задачи}
+    Придумать и реализовать задачу, используя потоковый алгоритм.
+
+\section{Идея}
+    Программа считает среднее арифметическое чисел. В программе существует два потока: первый создаёт числа и отправляет их в очередь, второй - берёт числа из очереди и пересчитывает среднее арифметическое.
+	
+    
+\section{Реализация}
+\begin{lstlisting}[label=some-code,caption={Производитель чисел}]
+static void conv1()
+{
+	double temp;
+	for (int i = 0; i < len; i++)
+	{
+		temp = 10*rand.NextDouble();//[0-10)
+		lock (locker)
+		{
+			queue1.Enqueue(temp);
+			Console.WriteLine("1.Работает: положил: {0} из {1}", i+1, len);
+		}
+		
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=some-code,caption={Вычисление среднего арифметического}]
+static void conv2()
+{
+	double temp;
+	while (work)
+	{
+		if (queue1.Count != 0)
+		{
+			lock (locker)
+			{
+				temp = queue1.Dequeue();
+				Sum += temp;
+				count++;
+				midle = Sum / count;
+			}
+			Console.WriteLine("2.Работает: вычислил {0} осталось {1}. Среднее арифметическое: {2}",count,queue1.Count,midle);
+			if (count == len)
+				work = false;
+		}
+	}
+}
+\end{lstlisting}
+
+\section{Заключение}
+	В ходе лабораторной работы был реализован потоковый алгоритм вычисления среднего арифметического чисел.
+\end{document} 

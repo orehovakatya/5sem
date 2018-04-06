@@ -1,0 +1,42 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Primer02
+{
+    class CommandScalar
+    {
+        static void Main()
+        {
+            // Объявляем строку подключения
+            string connectionString = @"server = .\sqlexpress;integrated security = true;database = northwind";
+            // можно попробовать и другой вариант
+            // string connectionString = @"Data Source=.\sqlexpress;Initial Catalog=northwind;Integrated Security=true;";
+            // Объявляем строку запроса
+            string queryString = @"select count(*) from employees";
+            // Создаем подключение для текущей строки подключения
+            SqlConnection conn = new SqlConnection(connectionString);
+            // Создаем команду для текущей строки запроса и текущего подключения
+            SqlCommand cmd = new SqlCommand(queryString, conn);
+            Console.WriteLine("Команда создана для текущего подключения.");
+            try
+            {
+                // Открываем подключение
+                conn.Open();
+                // Выполняем запрос (замечаем, что запрос скалярный) и выводим на консоль результат запроса
+                Console.WriteLine("Количество сотрудников (работников) равно {0}", cmd.ExecuteScalar());
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Закрываем подключение
+                conn.Close();
+                Console.WriteLine("Подключение закрыто.");
+            }
+            Console.ReadLine();
+        }
+    }
+}
